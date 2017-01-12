@@ -1,0 +1,18 @@
+#!/bin/bash
+set -e
+BASE_DIR=<%= node.stun.base_dir %>
+echo "base dir: $BASE_DIR"
+CONF="-Dconfig.file=${BASE_DIR}/conf/application.conf"
+IPV4="-Djava.net.preferIPv4Stack=true"
+JAR="${BASE_DIR}/lib/stun.jar"
+
+cd $BASE_DIR
+rm -f <%= node.stun.pid_file %> <%= node.stun.logs %>
+# dozy.log*
+echo "nohup java $IPV4 $CONF -jar $JAR 2>&1 > <%= node.stun.logs %> &"
+nohup java $IPV4 $CONF -jar $JAR 2>&1 > <%= node.stun.logs %> &
+echo $! > <%= node.stun.pid_file %>
+sleep 3
+echo "<%= node.stun.logs %>"
+kill -0 `cat <%= node.stun.pid_file %>`
+exit $?

@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e
+
+USERID=`id | sed -e 's/).*//; s/^.*(//;'`
+if [ "X$USERID" != "Xroot" ]; then
+   echo "You should have run update_binaries as root"
+   exit -3
+fi
+
+BINARIES_SERVER=snurran.sics.se
+STUN_USER=<%= node.stun.user %>
+STUN_HOME=<%= node.stun.home %>
+WGET="wget <%= node.stun.url %> -O stun.jar"
+
+service stun stop
+
+echo "cd ${STUN_HOME}/lib"
+cd ${STUN_HOME}/lib
+
+echo "cleaning..."
+rm -rf bin
+rm -rf stun.jar
+
+echo "su ${STUN_USER} -c "$WGET""
+su ${STUN_USER} -c "$WGET"
+
+service stun start

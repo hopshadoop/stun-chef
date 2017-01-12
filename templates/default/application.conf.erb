@@ -1,0 +1,13 @@
+system {
+    seed = <%= node.stun.seed %>
+    port = <%= node.stun.port %>
+    id = <%= node.stun.id %>
+}
+network {
+   ipType = "PRIVATE"
+}
+
+stun.server {
+    port1 = <%= node.stun.stun_port1 %>
+    port2 = <%= node.stun.stun_port2 %>
+}

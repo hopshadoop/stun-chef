@@ -1,0 +1,16 @@
+[Unit]
+Description = Stun server
+After = syslog.target network.target remote-fs.target
+
+[Service]
+User = <%= node.stun.user %>
+
+PIDFile = /tmp/stun.pid
+ExecStart = <%= node.stun.home %>/bin/start.sh
+ExecStop = <%= node.stun.home %>/bin/stop.sh
+LimitNOFILE = 20000
+
+Type = forking
+
+[Install]
+WantedBy = multi-user.target

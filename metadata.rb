@@ -6,6 +6,7 @@ description      'Installs/Configures/Runs stun server'
 version          "0.1.0"
 
 recipe            "stun::install", "Install stun binaries"
+recipe            "stun::server", "Starts the stun server"
 recipe            "stun::purge",  "Stops the stun server and deletes all its files"
 
 %w{ ubuntu debian rhel centos }.each do |os|
@@ -54,3 +55,15 @@ attribute "stun/stun_port2",
 attribute "stun/port",
 	    :description => "internal stun server port.",
 	    :type => "string"
+
+attribute "stun/bootstrap/ip",
+         :description => "stun bootstrap ip.",
+         :type => "string"
+
+attribute "stun/bootstrap/port",
+         :description => "stun bootstrap port.",
+         :type => "string"
+
+attribute "stun/bootstrap/id",
+         :description => "stun bootstrap id.",
+         :type => "string"

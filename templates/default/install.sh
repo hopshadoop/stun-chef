@@ -17,5 +17,3 @@ echo $TAR
 
 tar -xzvf $TAR -C $INSTALL_DIR
 cd $INSTALL_DIR
-echo "">> conf/application.conf
-echo "webservice.server=\"`pwd`/conf/config.yml\"" >> conf/application.conf

@@ -11,3 +11,23 @@ stun.server {
     port1 = <%= node.stun.stun_port1 %>
     port2 = <%= node.stun.stun_port2 %>
 }
+
+overlays {
+    bootstrap {
+        server {
+            ip = <%= node.stun.bootstrap.ip %>
+            port = <%= node.stun.bootstrap.port %>
+            id = <%= node.stun.bootstrap.id %>
+        }
+    }
+}
+
+overlayOwners {
+    sweep=1
+    vod=2
+    nat=3
+}
+croupier {
+    aggLevel = FULL
+    aggPeriod = 30000
+}

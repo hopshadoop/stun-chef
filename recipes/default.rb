@@ -18,11 +18,16 @@ template "#{node.stun.home}/conf/application.conf" do
   owner node.stun.user
   group node.stun.group
   mode 0750
-  variables({ 
-     :stun1_ip => stun1_ip,
-     :stun2_ip => stun2_ip,
-     :stun1_id => stun1_id,
-     :stun2_id => stun2_id
+  variables({
+  })
+end
+
+template "#{node.stun.home}/conf/log4j.properties" do
+  source "log4j.properties.erb" 
+  owner node.stun.user
+  group node.stun.group
+  mode 0750
+  variables({
   })
 end
 

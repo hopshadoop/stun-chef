@@ -1,0 +1,33 @@
+log4j.debug=true
+# C1 is a console appender
+log4j.appender.C1=org.apache.log4j.ConsoleAppender
+log4j.appender.C1.layout=org.apache.log4j.PatternLayout
+log4j.appender.C1.layout.ConversionPattern=%d{[HH:mm:ss,SSS]} %-5p {%c{1}} %m%n
+# F1 is a file appender
+log4j.appender.F1=org.apache.log4j.RollingFileAppender
+log4j.appender.F1.file=<%= node.stun.logs %>
+log4j.appender.F1.MaxFileSize=10MB
+log4j.appender.F1.MaxBackupIndex=10
+log4j.appender.F1.layout=org.apache.log4j.PatternLayout
+log4j.appender.F1.layout.ConversionPattern=%d{[HH:mm:ss,SSS]} %-5p {%c{1}} %m%n
+
+# levels: TRACE, DEBUG, INFO, WARN, ERROR, FATAL
+
+# We trace everything in the log file
+#log4j.rootLogger=WARN, F1, C1
+log4j.rootLogger=TRACE,F1
+
+log4j.logger.Kompics=WARN
+log4j.logger.se.sics.kompics.timer.java.JavaTimer=WARN
+
+log4j.logger.se.sics.kompics.network=WARN
+log4j.logger.io.netty=WARN
+log4j.logger.com.barchart=WARN
+
+log4j.logger.NettyNetwork@<%= node.stun.port %>=INFO
+log4j.logger.NettyNetwork@<%= node.stun.stun_port1 %>=INFO
+log4j.logger.NettyNetwork@<%= node.stun.stun_port1 %>=INFO
+
+log4j.logger.Config=INFO
+log4j.logger.se.sics.nat=WARN
+log4j.logger.se.sics.ktoolbox=WARN 

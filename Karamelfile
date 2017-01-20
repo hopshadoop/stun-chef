@@ -1,2 +1,4 @@
-dependencies:
-  - recipe: stun::server
+dependencies: 
+  - recipe: stun::install
+  - recipe: stun::default
+  - recipe: stun::sshable 

@@ -1,6 +1,21 @@
 
 include_recipe "java"
 
+# hack until groups attrs work in karamel
+node.override.stun.bootstrap.ip = "192.168.56.101"
+node.override.stun.bootstrap.port = 30000
+node.override.stun.bootstrap.id = 1
+
+if my_private_ip().eql?("192.168.56.102")
+  node.override.stun.type = "even"
+  node.override.stun.id =  2
+end
+if my_private_ip().eql?("192.168.56.103")
+  node.override.stun.type = "odd"
+  node.override.stun.id =  3
+end
+####
+
 group node.stun.group do
   action :create
   not_if "getent group #{node.stun.group}"
@@ -80,5 +95,45 @@ link node.stun.base_dir do
   owner node.stun.user
   group node.stun.group
   to node.stun.home
+end
+
+if node.stun.id.nil?
+    node.override.stun.id = Time.now.getutc.to_i
+end
+
+if node.stun.seed.nil?
+    node.override.stun.seed = Random.rand(100000)
+end
+
+if !node.stun.id.is_a?(Integer)
+    node.override.stun.id = node.stun.id.to_i
+end
+if node.stun.type.eql?("odd")
+  if node.stun.id.even?
+    node.override.stun.id = node.stun.id+1
+  end
+end
+if node.stun.type.eql?("even")
+  if node.stun.id.odd?
+    node.override.stun.id = node.stun.id+1
+  end
+end
+
+template "#{node.stun.home}/conf/application.conf" do
+  source "application.conf.erb" 
+  owner node.stun.user
+  group node.stun.group
+  mode 0750
+  variables({
+  })
+end
+
+template "#{node.stun.home}/conf/log4j.properties" do
+  source "log4j.properties.erb" 
+  owner node.stun.user
+  group node.stun.group
+  mode 0750
+  variables({
+  })
 end
 

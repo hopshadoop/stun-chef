@@ -3,12 +3,10 @@ maintainer       "Jim Dowling"
 maintainer_email "jdowling@kth.se"
 license          "Apache v2.0"
 description      'Installs/Configures/Runs stun server'
-version          "0.1.0"
+version          "0.0.1"
 
 recipe            "stun::install",      "Install stun binaries"
 recipe            "stun::default",      "Starts the (random) stun server"
-recipe            "stun::server-odd",   "Starts the odd stun server"
-recipe            "stun::server-even",  "Starts the even stun server"
 recipe            "stun::sshable",      "Copies a public key to this server so you can use it to ssh"
 recipe            "stun::purge",        "Stops the stun server and deletes all its files"
 
@@ -16,11 +14,26 @@ recipe            "stun::purge",        "Stops the stun server and deletes all i
   supports os
 end
 
-depends "kagent"
 depends "java"
+depends "kagent"
+depends "conda"
 
+##### karamel/chef
 attribute "java/jdk_version",
           :description => "Version of Java to use (e.g., '7' or '8')",
+          :type => "string"
+
+attribute "kagent/enabled",
+          :description => "'true' by default",
+          :type => "string"
+
+##### install
+attribute "install/dir",
+          :description => "Default ''. Set to a base directory under which all hops services will be installed.",
+          :type => "string"
+
+attribute "install/user",
+          :description => "User to install the services as",
           :type => "string"
 
 attribute "stun/group",
@@ -35,9 +48,13 @@ attribute "stun/dir",
           :description => "Base directory for stun installation (default: '/srv')",
 	  :type => "string"
 
-
+##### app
 attribute "stun/log_level",
           :description => "Default: WARN. Can be INFO or DEBUG or TRACE or ERROR.",
+          :type => "string"
+
+attribute "stun/type",
+          :description => "type (odd/even) for the stun instance(related to id - if id provided manually, it should match).",
           :type => "string"
 
 attribute "stun/id",

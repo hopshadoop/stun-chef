@@ -6,3 +6,4 @@ metadata
 
 cookbook 'java'
 cookbook 'kagent', github: "karamelchef/kagent-chef", branch: "master"
+cookbook 'conda', github: "hopshadoop/conda-chef", branch: "master"

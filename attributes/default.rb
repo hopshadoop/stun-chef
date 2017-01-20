@@ -1,3 +1,4 @@
+default.stun.service			   = "stun"
 default.stun.group                 = "stun"
 default.stun.user                  = "stun"
 

@@ -1,6 +1,10 @@
 dependencies: 
   - recipe: stun::install
   - recipe: stun::default
+    local: 
+      - kagent::default
+    global:
+      - delabootstrap::default
   - recipe: stun::sshable 
     global:
       - delabootstrap::pkey-provider

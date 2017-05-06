@@ -2,3 +2,5 @@ dependencies:
   - recipe: stun::install
   - recipe: stun::default
   - recipe: stun::sshable 
+    global:
+      - delabootstrap::pkey-provider
